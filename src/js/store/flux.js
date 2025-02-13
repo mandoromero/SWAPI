@@ -1,42 +1,42 @@
 const getState = ({ getStore, getActions, setStore }) => {
+	const API_URL = process.env.REACT_APP_API_URL;
+
 	return {
 		store: {
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+			people: [],
+			planets: [],
+			starships: [],
+			favorites: [],
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
+			loadPeople: async () => {
+				try {
+					const response = await fetch(`${API_URL}/people/`);
+					const data = await response.json();
+					setStore({ people: data.results });
+				} catch (error) {
+					console.error("Error loading people:", error);
+				}
 			},
-			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
+
+			loadPlanets: async () => {
+				try {
+					const response = await fetch(`${API_URL}/planets/`);
+					const data = await response.json();
+					setStore({ planets: data.results });
+				} catch (error) {
+					console.error("Error loading planets:", error);
+				}
 			},
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
 
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
-
-				//reset the global store
-				setStore({ demo: demo });
+			loadStarships: async () => {
+				try {
+					const response = await fetch(`${API_URL}/starships/`);
+					const data = await response.json();
+					setStore({ starships: data.results });
+				} catch (error) {
+					console.error("Error loading starships:", error);
+				}
 			}
 		}
 	};

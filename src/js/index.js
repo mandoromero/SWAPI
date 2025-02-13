@@ -1,16 +1,16 @@
-//import react into the bundle
-import React from 'react'
-import {createRoot} from 'react-dom/client'
+// Import React into the bundle
+import React from "react";
+import { createRoot } from "react-dom/client";
 
-//include your index.scss file into the bundle
+// Include your global styles
 import "../styles/index.css";
 
-//import your own components
-import Layout from './layout.js'
+// Import your main layout component
+import Layout from "./layout.js";
 
-//
-const root = createRoot(document.querySelector("#app"))
+// Select the root element
+const root = createRoot(document.querySelector("#app"));
 
-//render your react application
-root.render(<Layout/>)
+// Render your React application
+root.render(<Layout />);
 
