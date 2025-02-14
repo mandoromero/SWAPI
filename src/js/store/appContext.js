@@ -1,37 +1,25 @@
-import React, { useState, useEffect } from "react";
-import getState from "./flux.js";
+import React, { createContext, useReducer, useEffect } from "react";
 
-export const Context = React.createContext(null);
+useEffect(() => {
+  const fetchData = async (endpoint, actionType, storageKey) => {
+    const storedData = localStorage.getItem(storageKey);
 
-const injectContext = (PassedComponent) => {
-	const StoreWrapper = (props) => {
-		const [state, setState] = useState(
-			getState({
-				getStore: () => state.store,
-				getActions: () => state.actions,
-				setStore: (updatedStore) =>
-					setState({
-						store: Object.assign({}, state.store, updatedStore),
-						actions: { ...state.actions },
-					}),
-			})
-		);
+    if (storedData) {
+      dispatch({ type: actionType, payload: JSON.parse(storedData) });
+      return;
+    }
 
-		useEffect(() => {
-			// Load initial data from the API when the app starts
-			state.actions.loadPeople();
-			state.actions.loadPlanets();
-			state.actions.loadVehecles();
-		}, []);
+    try {
+      const response = await fetch(`https://www.swapi.tech/api/${endpoint}/`);
+      const data = await response.json();
+      dispatch({ type: actionType, payload: data.results });
+      localStorage.setItem(storageKey, JSON.stringify(data.results));
+    } catch (error) {
+      console.error(`Error loading ${endpoint}:`, error);
+    }
+  };
 
-		return (
-			<Context.Provider value={state}>
-				<PassedComponent {...props} />
-			</Context.Provider>
-		);
-	};
-
-	return StoreWrapper;
-};
-
-export default injectContext;
+  fetchData("people", SET_PEOPLE, "characters");
+  fetchData("vehicles", SET_VEHICLES, "vehicles");
+  fetchData("planets", SET_PLANETS, "planets");
+}, []);
