@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
-import StoreContext from "../store/appContext";
-import EntityList from "../component/EntityList";
+import StoreContext from "../store/appContext.js";
+import EntityList from "../component/EntityList.jsx";
+import { Navbar } from "../component/Navbar.js";
 
 const Home = () => {
   const { state } = useContext(StoreContext);
@@ -34,7 +35,7 @@ const Home = () => {
         <p style={{ color: "white", textAlign: "center" }}>Loading vehicles...</p>
       )}
     </div>
-  );
+  )
 };
 
 export default Home;

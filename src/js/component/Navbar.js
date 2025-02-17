@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { removeFromFavorites } from './Actions';
+import Actions from './Actions';
 
-const Navbar = () => {
+export function Navbar () {
   const { state, dispatch } = useGlobalReducer();
   const { favorites } = state;
 
@@ -42,6 +42,4 @@ const Navbar = () => {
       </ul>
     </nav>
   );
-};
-
-export default Navbar;
+}
