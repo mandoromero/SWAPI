@@ -1,7 +1,7 @@
 import React from "react";
 import { useContext } from "react";
-import StoreContext from "../store/appContext";
-import EntityCard from "./EntityCard";
+import StoreContext from "../store/appContext.jsx";
+import EntityCard from "./EntityCard.jsx";
 
 const EntityList = ({ entities, entityType }) => {
   const { dispatch } = useContext(StoreContext);

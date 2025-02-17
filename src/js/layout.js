@@ -1,11 +1,12 @@
-import { StoreProvider } from "../store/appContext";
+import { StoreProvider } from "../store/appContext.js";
+import { StoreContext } from "../store/appContext.js"
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import Home from "./views/home";
-import injectContext from "./store/appContext";
-import { Navbar } from "./component/Navbar";
-import { Footer } from "./component/footer";
+import injectContext from "./store/appContext.js";
+import { Navbar } from "./component/Navbarjs";
+import { Footer } from "./component/footer.js";
 
 // Retrieve the BASENAME from the environment variable or default to "/"
 const basename = process.env.REACT_APP_BASENAME || "/";

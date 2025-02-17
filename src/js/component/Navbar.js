@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Actions from './Actions';
+import Actions from './Actions.jsx';
 
 export function Navbar () {
   const { state, dispatch } = useGlobalReducer();
