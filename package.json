@@ -74,6 +74,7 @@
 		]
 	},
 	"dependencies": {
+		"bootstrap": "^5.3.3",
 		"prop-types": "^15.7.2",
 		"query-string": "^9.1.1",
 		"react": "^19.0.0",
