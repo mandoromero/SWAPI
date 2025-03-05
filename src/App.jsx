@@ -1,5 +1,6 @@
 import React from "react";
 import Home from "./Components/Home.jsx"; // Ensure correct path and casing
+import "./App.css";
 
 const App = () => {
     return (
