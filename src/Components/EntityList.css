@@ -1,0 +1,13 @@
+.carousel-container {
+    width: 80%;
+    margin: auto;
+}
+
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+}
+
+.card {
+    text-align: center;
+}

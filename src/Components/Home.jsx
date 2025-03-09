@@ -21,13 +21,13 @@ const Home = () => {
     return (
         <div className="container">
           
-            <h2 style={{ textAlign: "center" }}>Characters</h2>
+            <h2 style={{ color: "#FFE81F", textAlign: "center" }}>Characters</h2>
             <EntityList entities={people} entityType="people" />
 
-            <h2 style={{ textAlign: "center" }}>Planets</h2>
+            <h2 style={{ color: "#FFE81F", textAlign: "center" }}>Planets</h2>
             <EntityList entities={planets} entityType="planets" />
 
-            <h2 style={{ textAlign: "center" }}>Vehicles</h2>
+            <h2 style={{ color: "#FFE81F", textAlign: "center" }}>Vehicles</h2>
             <EntityList entities={vehicles} entityType="vehicles" />
         </div>
     );
