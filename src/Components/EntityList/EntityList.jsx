@@ -1,11 +1,14 @@
 import React from "react";
+import { useEffectd } from "react";
+// import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css"; // Basic Swiper styles
 import "swiper/css/pagination"; 
 import "swiper/css/navigation";
 import { Navigation, Pagination } from "swiper/modules";
-import "./EntityList.css";
+import "../EntityList/EntityList.css";
+import fetchpeople from "../../store/swapiSlice.js"
 
 const EntityList = ({ entities = [], entityType }) => {
     const dispatch = useDispatch();
@@ -45,9 +48,9 @@ const EntityList = ({ entities = [], entityType }) => {
             >
             
                 {entities.map((entity) => {
-                    const imageUrl = `://starwars-visualguide.com/assets/img//${imageEntityType}/${entity.uid}.jpg`;
+                    const imageUrl = `://starwars-visualguide.com/assets/img/${imageEntityType}/${entity.uid}.jpg`;
 
-
+                console.log(imageUrl);
                     return (
                         <SwiperSlide key={entity.uid}>
                             <div className="card" 
@@ -72,7 +75,8 @@ const EntityList = ({ entities = [], entityType }) => {
                                         alt={entity.name}
                                         width="100%"
                                         height="100%"
-                                        onError={(e) => { e.target.onerror = null; e.target.src = "https://starwars-visualguide.com/assets/img/placeholder.jpg"; }}
+                                        onError={(e) => 
+                                            { e.target.onerror = null; e.target.src = "https://starwars-visualguide.com/assets/img/placeholder.jpg"; }}
 
                                     />
                                     <h5 className="card-title" 

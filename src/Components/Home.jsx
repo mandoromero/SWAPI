@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPeople, fetchPlanets, fetchVehicles } from "../store/swapiSlice";
-import EntityList from "./EntityList";
-import EntityContainer from "./EntityContainer";
+import EntityList from "./EntityList/EntityList.jsx";
+// import EntityContainer from "./EntityContainer";
+import "./Home.css";
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -21,13 +22,13 @@ const Home = () => {
     return (
         <div className="container">
           
-            <h2 style={{ color: "#FFE81F", textAlign: "center" }}>Characters</h2>
+            <h2 className="entity">Characters</h2>
             <EntityList entities={people} entityType="people" />
 
-            <h2 style={{ color: "#FFE81F", textAlign: "center" }}>Planets</h2>
+            <h2 className="entity">Planets</h2>
             <EntityList entities={planets} entityType="planets" />
 
-            <h2 style={{ color: "#FFE81F", textAlign: "center" }}>Vehicles</h2>
+            <h2 className="entity">Vehicles</h2>
             <EntityList entities={vehicles} entityType="vehicles" />
         </div>
     );
