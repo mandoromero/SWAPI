@@ -1,3 +1,15 @@
+export const addToFavorites = (item) => ({
+    type: ADD_TO_FAVORITES,
+    payload: item,
+});
+  
+export const removeFromFavorites = (item) => ({
+    type: REMOVE_FROM_FAVORITES,
+    payload: item,
+});
+  
+
+
 export const fetchPeople = () => async (dispatch) => {
     try {
         const response = await fetch("https://www.swapi.tech/api/people/");

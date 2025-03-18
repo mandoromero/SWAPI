@@ -1,6 +1,5 @@
 import React from 'react';
 import EntityList from './EntityList';
-
 import { removeFromFavorites } from './Actions';
 
 const Favorites = () => {
