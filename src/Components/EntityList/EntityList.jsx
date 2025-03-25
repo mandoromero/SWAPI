@@ -50,7 +50,6 @@ const EntityList = ({ entities = [], entityType }) => {
                 {entities.map((entity) => {
                     const imageUrl = `://starwars-visualguide.com/assets/img/${imageEntityType}/${entity.uid}.jpg`;
 
-                console.log(imageUrl);
                     return (
                         <SwiperSlide key={entity.uid}>
                             <div className="card" 
@@ -75,15 +74,15 @@ const EntityList = ({ entities = [], entityType }) => {
                                         alt={entity.name}
                                         width="100%"
                                         height="100%"
-                                        onError={(e) => 
-                                            { e.target.onerror = null; e.target.src = "https://starwars-visualguide.com/assets/img/placeholder.jpg"; }}
-
+                                        // onError={(e) => 
+                                            // { e.target.onerror = null; e.target.src = "https://starwars-visualguide.com/assets/img/placeholder.jpg"; }}
                                     />
-                                    <h5 className="card-title" 
+                                </div>
+                                <h5 className="card-title" 
                                         style={{ textAlign: "center", marginTop: "5px" }}>
                                         {entity.name}
-                                    </h5>
-                                    <button 
+                                </h5>
+                                <button 
                                         className="btn btn-lg btn-block"
                                         onClick={() => toggleFavorite(entity)}
                                         style={{
@@ -98,8 +97,7 @@ const EntityList = ({ entities = [], entityType }) => {
                                         }}
                                     >
                                         {favorites?.some(fav => fav.uid === entity.uid) ? "★" : "☆"} Favorite
-                                    </button>
-                                </div>
+                                </button>
                             </div>
                         </SwiperSlide>
                     );

@@ -1,10 +1,12 @@
 import React from 'react';
 import EntityList from './EntityList';
 import { removeFromFavorites } from './Actions';
+import { useSelector, useDispatch } from 'react-redux';
 
 const Favorites = () => {
-  const { store, dispatch } = useGlobalReducer();
-  const { favorites } = store;
+  const favorites = useSelector(state => state.favorites || []);
+  const dispatch = useDispatch();
+
 
   return (
     <div className="container">

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPeople, fetchPlanets, fetchVehicles } from "../store/swapiSlice";
-import EntityList from "./EntityList/EntityList.jsx";
+import EntityList from "../Components/EntityList/EntityList";
 import "./Home.css";
 
 const Home = () => {
