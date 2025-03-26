@@ -19,16 +19,27 @@ export const fetchVehicles = createAsyncThunk("swapi/fetchVehicles", async () =>
     return response.data.results;
 });
 
+// Create the slice
 const swapiSlice = createSlice({
     name: "swapi",
     initialState: {
         people: [],
         planets: [],
         vehicles: [],
+        favorites: [],
         status: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
         error: null,
     },
-    reducers: {},
+    reducers: {
+        addToFavorites: (state, action) => {
+            if (!state.favorites.some(fav => fav.uid === action.payload.uid)) {
+                state.favorites.push(action.payload);
+            }
+        },
+        removeFromFavorites: (state, action) => {
+            state.favorites = state.favorites.filter(fav => fav.uid !== action.payload.uid);
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(fetchPeople.pending, (state) => {
@@ -51,4 +62,5 @@ const swapiSlice = createSlice({
     },
 });
 
+export const { addToFavorites, removeFromFavorites } = swapiSlice.actions;
 export default swapiSlice.reducer;

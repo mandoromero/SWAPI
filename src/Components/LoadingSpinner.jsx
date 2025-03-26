@@ -1,10 +1,10 @@
 import React from "react";
-import "../Components/LoadingSpinner.css";
+import "./LoadingSpinner.css";
 
 const LoadingSpinner = () => {
   return (
-    <div className="loading-spinner">
-      <i className="fa-solid fa-jedi"></i>
+    <div className="loading-spinner m-auto w-100 h-100">
+      <i className="fa-solid fa-jedi fa-2xl fa-spin"></i>
     </div>
   );
 };

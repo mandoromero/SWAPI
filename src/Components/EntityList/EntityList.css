@@ -11,3 +11,24 @@
 .card {
     text-align: center;
 }
+
+.swiper-slide {
+    cursor: grab;
+}
+
+.swiper-slide:active {
+    cursor: grabbing;
+}
+
+button {
+    cursor: pointer; 
+}
+
+.swiper-pagination-horizontal {
+    z-index: -1;
+}
+
+.card {
+    padding-bottom: px;
+}
+

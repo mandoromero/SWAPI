@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPeople, fetchPlanets, fetchVehicles } from "../store/swapiSlice";
 import EntityList from "../Components/EntityList/EntityList";
+import LoadingSpinner from "./LoadingSpinner.jsx";
 import "./Home.css";
 
 const Home = () => {
@@ -14,8 +15,8 @@ const Home = () => {
         dispatch(fetchPlanets());
         dispatch(fetchVehicles());
     }, [dispatch]);
-
-    if (status === "loading") return <p>Loading data...</p>;
+    // let test = true;
+    if (status === "loading") return <div className="container"><LoadingSpinner /></div>;
     if (status === "failed") return <p>Error: {error}</p>;
 
     return (

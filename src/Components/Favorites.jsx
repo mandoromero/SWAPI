@@ -1,6 +1,6 @@
 import React from 'react';
-import EntityList from './EntityList';
-import { removeFromFavorites } from './Actions';
+import EntityList from './EntityList/EntityList.jsx';
+import { removeFromFavorites } from '';
 import { useSelector, useDispatch } from 'react-redux';
 
 const Favorites = () => {

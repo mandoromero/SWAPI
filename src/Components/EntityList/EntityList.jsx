@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffectd } from "react";
+import { useEffect } from "react";
 // import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -9,6 +9,7 @@ import "swiper/css/navigation";
 import { Navigation, Pagination } from "swiper/modules";
 import "../EntityList/EntityList.css";
 import fetchpeople from "../../store/swapiSlice.js"
+import { addToFavorites, removeFromFavorites } from "../../store/swapiSlice.js"
 
 const EntityList = ({ entities = [], entityType }) => {
     const dispatch = useDispatch();
@@ -25,10 +26,7 @@ const EntityList = ({ entities = [], entityType }) => {
 
     const toggleFavorite = (entity) => {
         const isFavorite = favorites.some(fav => fav.uid === entity.uid);
-        dispatch({
-            type: isFavorite ? "REMOVE_FAVORITE" : "ADD_FAVORITE",
-            payload: entity
-        });
+        dispatch(isFavorite ? removeFromFavorites(entity) : addToFavorites(entity));
     };
 
     return (
@@ -48,7 +46,7 @@ const EntityList = ({ entities = [], entityType }) => {
             >
             
                 {entities.map((entity) => {
-                    const imageUrl = `://starwars-visualguide.com/assets/img/${imageEntityType}/${entity.uid}.jpg`;
+                    const imageUrl = `https://starwars-visualguide.com/assets/img/${imageEntityType}/${entity.uid}.jpg`;
 
                     return (
                         <SwiperSlide key={entity.uid}>
