@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Details from "../src/Components/Details.jsx";
+import Details from "./Components/Details.jsx";
 import Home from "./Components/Home.jsx";
-import Navbar from "../src/Components/Navbar.jsx";
-import Favorites from "../src/Components/Favorites.jsx";
+import Navbar from "./Components/Navbar.jsx";
+import Favorites from "./Components/Favorites.jsx";
 
 const Layout = () => {
     const basename = "/";
