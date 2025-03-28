@@ -70,9 +70,14 @@ const EntityList = ({ entities = [], entityType }) => {
                                     height="100%"
                                 />
                             </div>
-                            <h5 className="card-title" style={{ textAlign: "center", marginTop: "5px" }}>
-                                {entity.name}
-                            </h5>
+                                <h5 className="card-title" style={{ textAlign: "center", marginTop: "5px" }}>
+                                    <link
+                                        to={`/details/${entityType}/${entity.uid}`} 
+                                        style={{ textDecoration: "none", color: "#ffe81f" }}
+                                    >
+                                        {entity.name}
+                                    </link>
+                                </h5>
                             <button
                                 className="btn btn-lg btn-block"
                                 onClick={() => toggleFavorite(entity)}

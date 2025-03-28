@@ -3,9 +3,11 @@ body {
 }
 
 .entity {
-    color:  #000000;
+color:  #FFE81F;
     text-align: center;
+}
 
 h2 {
     font-size: 40px;
+    color: #FFE81F;
 }

@@ -37,6 +37,7 @@ const swapiSlice = createSlice({
             }
         },
         removeFromFavorites: (state, action) => {
+            console.log("Removing:", action.payload);
             state.favorites = state.favorites.filter(fav => fav.uid !== action.payload.uid);
         }
     },
@@ -53,8 +54,22 @@ const swapiSlice = createSlice({
                 state.status = "failed";
                 state.error = action.error.message;
             })
+            .addCase(fetchPlanets.pending, (state) => {
+                state.status = "loading";
+            })
+            .addCase(fetchPlanets.rejected, (state) => {
+                state.status = "failed";
+                state.error = action.error.message;
+            })    
             .addCase(fetchPlanets.fulfilled, (state, action) => {
                 state.planets = action.payload;
+            })
+            .addCase(fetchVehicles.pending, (state) => {
+                state.status = "loading";
+            })
+            .addCase(fetchVehicles.rejected, (state) => {
+                state.status = "failed";
+                state.error = action.error.message;
             })
             .addCase(fetchVehicles.fulfilled, (state, action) => {
                 state.vehicles = action.payload;
