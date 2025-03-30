@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom"; // ✅ Import Link
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -74,7 +74,7 @@ const EntityList = ({ entities = [], entityType }) => {
                             <h5 className="card-title" style={{ textAlign: "center", marginTop: "5px" }}>
                                 <Link
                                     to={`/details/${entityType}/${entity.uid}`} 
-                                    style={{ textDecoration: "none", color: "#000000" }}
+                                    style={{ textDecoration: "none", color: "#000000", fontWeight: "bold" }}
                                 >
                                     {entity.name}
                                 </Link>

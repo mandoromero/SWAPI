@@ -1,46 +1,94 @@
-import React, { useMemo } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { removeFromFavorites } from "../store/swapiSlice";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
 
-const Favorites = () => {
-    const favorites = useSelector((state) => state.swapi.favorites);
-    const dispatch = useDispatch();
-    const memoizedFavorites = useMemo(() => favorites, [favorites]);
+const Details = () => {
+    const { type, id } = useParams(); // Get entity type and ID from URL
+    const [entity, setEntity] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-    // Placeholder image
-    const favImageHolder = "https://placehold.co/300x200";
+    useEffect(() => {
+        const fetchEntityDetails = async () => {
+            try {
+                const response = await fetch(`https://www.swapi.tech/api/${type}/${id}`);
+                const data = await response.json();
+                setEntity(data.result);
+                setLoading(false);
+            } catch (error) {
+                console.error("Error fetching entity details:", error);
+                setLoading(false);
+            }
+        };
+
+        fetchEntityDetails();
+    }, [type, id]);
+
+    if (loading) {
+        return <p>Loading details...</p>;
+    }
+
+    if (!entity || !entity.properties) {
+        return <p>Entity not found.</p>;
+    }
+
+    const { properties } = entity;
+
+    // Define data structure based on type
+    let detailsData = {};
+    if (type === "people") {
+        detailsData = {
+            "Gender": properties.gender,
+            "Hair Color": properties.hair_color,
+            "Height": properties.height,
+            "Eye Color": properties.eye_color,
+            "Mass": properties.mass,
+            "Birth Year": properties.birth_year,
+        };
+    } else if (type === "vehicles") {
+        detailsData = {
+            "Model": properties.model,
+            "Manufacturer": properties.manufacturer,
+            "Cost in Credits": properties.cost_in_credits,
+            "Length": properties.length,
+            "Max Speed": properties.max_atmosphering_speed,
+            "Crew": properties.crew,
+            "Passengers": properties.passengers,
+            "Cargo Capacity": properties.cargo_capacity,
+        };
+    } else if (type === "planets") {
+        detailsData = {
+            "Climate": properties.climate,
+            "Diameter": properties.diameter,
+            "Gravity": properties.gravity,
+            "Orbital Period": properties.orbital_period,
+            "Rotation Period": properties.rotation_period,
+            "Surface Water": properties.surface_water,
+            "Terrain": properties.terrain,
+            "Population": properties.population,
+        };
+    }
 
     return (
-        <div className="favorites-container">
-            <h2 style={{ textAlign: "center" }}>Your Favorites</h2>
-            {memoizedFavorites.length === 0 ? (
-                <p style={{ textAlign: "center" }}>No favorites added yet.</p>
-            ) : (
-                <div className="favorites-grid">
-                    {memoizedFavorites.map((item) => (
-                        <div key={item.uid} className="favorite-card">
-                            <div className="image-container" style={{ width: "300px", marginLeft: "auto", marginRight: "auto" }}>
-                                <img 
-                                    src={favImageHolder} 
-                                    alt={item.name} 
-                                />
-                            </div>
-                            <h5 style={{ textAlign: "center", color: "#FFE81F" }}>{item.name}</h5>
-                            <div className="button-container" style={{ marginLeft: "auto", marginRight: "auto" }}>
-                                <button 
-                                    aria-label={`Remove ${item.name} from favorites`} 
-                                    onClick={() => dispatch(removeFromFavorites(item))}
-                                >
-                                Remove
-                                </button>
-                            </div>
-                        </div>
+        <div style={{ fontFamily: "SF Distant Galaxy, sans-serif", textAlign: "center", padding: "20px", color: "#eef81e" }}>
+            <h1>{properties.name}</h1>
+            <p><strong>Description:</strong> {entity.description || "No description available."}</p>
+            <p><strong>UID:</strong> {entity.uid}</p>
+
+            <div id="descriptions-container" style={{ display: "flex", justifyContent: "center", gap: "20px", marginTop: "20px" }}>
+                <div id="keys" style={{ textAlign: "right", fontWeight: "bold" }}>
+                    {Object.keys(detailsData).map((key) => (
+                        <p key={key}>{key}:</p>
                     ))}
                 </div>
-            )}
+                <div id="values" style={{ textAlign: "left" }}>
+                    {Object.values(detailsData).map((value, index) => (
+                        <p key={index}>{value || "N/A"}</p>
+                    ))}
+                </div>
+            </div>
+
+            {/* Back to Entities Link */}
             <div className="back-button-container" style={{ marginTop: "20px", textAlign: "center" }}>
-                <Link to="/" className="btn btn-warning">
+                <Link to="/" className="btn btn-warning" style={{ backgroundColor: "#f0ad4e", color: "white", padding: "10px 20px", borderRadius: "5px", textDecoration: "none" }}>
                     Back to Entities
                 </Link>
             </div>
@@ -48,46 +96,4 @@ const Favorites = () => {
     );
 };
 
-export default Favorites;
-
-
-
-// const Favorites = () => {
-//     const favorites = useSelector((state) => state.swapi.favorites);
-//     const dispatch = useDispatch();
-//     const memoizedFavorites = useMemo(() => favorites, [favorites]);
-
-//     const handleImageError = (event) => {
-//         event.target.src = "/fallback-image.jpg"; // Use a local or placeholder image
-//     };
-
-//     return (
-//         <div className="favorites-container">
-//             <h2>Your Favorites</h2>
-//             {memoizedFavorites.length === 0 ? (
-//                 <p>No favorites added yet.</p>
-//             ) : (
-//                 <div className="favorites-grid">
-//                     {memoizedFavorites.map((item) => (
-//                         <div key={item.uid} className="favorite-card">
-//                             <img 
-//                                 src={`https://starwars-visualguide.com/assets/img/characters/${item.uid}.jpg`} 
-//                                 alt={item.name} 
-//                                 onError={handleImageError} 
-//                             />
-//                             <h5>{item.name}</h5>
-//                             <button 
-//                                 aria-label={`Remove ${item.name} from favorites`} 
-//                                 onClick={() => dispatch(removeFromFavorites(item))}
-//                             >
-//                                 Remove
-//                             </button>
-//                         </div>
-//                     ))}
-//                 </div>
-//             )}
-//         </div>
-//     );
-// };
-
-// export default Favorites;
+export default Details;
