@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom"; // ✅ Import Link
 import { useDispatch, useSelector } from "react-redux";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -23,7 +24,7 @@ const EntityList = ({ entities = [], entityType }) => {
 
     // Check if entities are empty or undefined
     if (!entities || entities.length === 0) {
-        return <LoadingSpinner />; // Show spinner while entities are loading
+        return <LoadingSpinner />;
     }
 
     return (
@@ -70,14 +71,14 @@ const EntityList = ({ entities = [], entityType }) => {
                                     height="100%"
                                 />
                             </div>
-                                <h5 className="card-title" style={{ textAlign: "center", marginTop: "5px" }}>
-                                    <link
-                                        to={`/details/${entityType}/${entity.uid}`} 
-                                        style={{ textDecoration: "none", color: "#ffe81f" }}
-                                    >
-                                        {entity.name}
-                                    </link>
-                                </h5>
+                            <h5 className="card-title" style={{ textAlign: "center", marginTop: "5px" }}>
+                                <Link
+                                    to={`/details/${entityType}/${entity.uid}`} 
+                                    style={{ textDecoration: "none", color: "#000000" }}
+                                >
+                                    {entity.name}
+                                </Link>
+                            </h5>
                             <button
                                 className="btn btn-lg btn-block"
                                 onClick={() => toggleFavorite(entity)}
@@ -103,4 +104,3 @@ const EntityList = ({ entities = [], entityType }) => {
 };
 
 export default EntityList;
-

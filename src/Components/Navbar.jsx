@@ -9,7 +9,7 @@ const Navbar = () => {
 
     return (
         <nav className="navbar navbar-expand-lg navbar-black bg-black mb-5" style={{ fontFamily: 'SF Distant Galaxy, sans-serif' }}>
-            <Link className="navbar-brand" to="/" style={{ marginLeft: '250px', fontSize: '50px', color: '#000000' }}>
+            <Link className="navbar-brand" to="/" style={{ marginLeft: '250px', fontSize: '50px', color: '#ffe81f' }}>
                 Star Wars Databank
             </Link>
             <div className="collapse navbar-collapse">
