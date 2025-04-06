@@ -10,6 +10,19 @@
 
 .card {
     text-align: center;
+    width: 150px;
+    height: 250px;
+    border: 3px #000000 solid;
+    background-color: #FFE81F;
+    border-radius: 5%;
+}
+
+.card-body {
+    border: 2px #000000 solid;
+    border-radius: 5%;
+    width: 90%;
+    margin: 6px auto;
+    height: 65%;
 }
 
 .swiper-slide {
@@ -22,6 +35,14 @@
 
 button {
     cursor: pointer; 
+    display: block;
+    width: 80%;
+    height: 30px;
+    margin: 5px auto;
+    background-color: #000000;
+    color: #FFE81F;
+    border: none;
+    border-radius: 5%;
 }
 
 .swiper-pagination-horizontal {

@@ -1,54 +1,112 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"; // Import necessary functions from Redux Toolkit
-import axios from "axios"; // Import Axios for making HTTP requests
+// Import Redux Toolkit helpers
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-// Define the API base URL, falling back to a default if not provided
-const API_BASE_URL = import.meta.env.VITE_SWAPI_URL || "https://www.swapi.tech/api";
+// ----------------------
+// ASYNC THUNKS (API calls)
+// ----------------------
 
-// Async thunks for fetching data from the SWAPI
-// Fetch people data from the SWAPI
+// These handle fetching data from the SWAPI.tech API
+// Redux Toolkit will automatically generate pending, fulfilled, and rejected action types
+
+// Fetching people from the Star Wars API
 export const fetchPeople = createAsyncThunk("swapi/fetchPeople", async () => {
-    const response = await axios.get(`${API_BASE_URL}/people`);
-    return response.data.results; // Return the results from the API response
+    const res = await fetch("https://www.swapi.tech/api/people");
+    const data = await res.json();
+    return data.results; // returns the array of people
 });
 
-// Fetch planets data from the SWAPI
+// Fetching planets from the Star Wars API
 export const fetchPlanets = createAsyncThunk("swapi/fetchPlanets", async () => {
-    const response = await axios.get(`${API_BASE_URL}/planets`);
-    return response.data.results; // Return the results from the API response
+    const res = await fetch("https://www.swapi.tech/api/planets");
+    const data = await res.json();
+    return data.results; // returns the array of planets
 });
 
-// Fetch vehicles data from the SWAPI
+// Fetching vehicles from the Star Wars API
 export const fetchVehicles = createAsyncThunk("swapi/fetchVehicles", async () => {
-    const response = await axios.get(`${API_BASE_URL}/vehicles`);
-    return response.data.results; // Return the results from the API response
+    const res = await fetch("https://www.swapi.tech/api/vehicles");
+    const data = await res.json();
+    return data.results; // returns the array of vehicles
 });
 
-// Create the slice, which contains the reducer and actions for the SWAPI state
+// ----------------------
+// INITIAL STATE
+// ----------------------
+
+// This is the default state for the swapi slice
+const initialState = {
+    people: [],           // array to hold fetched people
+    planets: [],          // array to hold fetched planets
+    vehicles: [],         // array to hold fetched vehicles
+    favorites: [],        // array to hold favorited entities (can be people, planets, or vehicles)
+    status: "idle",       // status of the current API call (used for showing loading states)
+    error: null,          // error message in case a fetch fails
+};
+
+// ----------------------
+// SLICE (Reducer + Actions)
+// ----------------------
+
 const swapiSlice = createSlice({
-    name: "swapi", // Name of the slice
-    initialState: {
-        people: [], // Initial state for the people data
-        planets: [], // Initial state for the planets data
-        vehicles: [], // Initial state for the vehicles data
-        favorites: [], // Initial state for the favorites
-        status: "idle", // Status to track loading states (idle, loading, succeeded, failed)
-        error: null, // Error state in case the API call fails
-    },
+    name: "swapi", // the name of this slice of state
+    initialState,  // the default values defined above
+
     reducers: {
-        // Reducer to add an entity to favorites
+        // Action to add an entity to favorites
         addToFavorites: (state, action) => {
-            // Only add to favorites if the entity is not already in favorites
-            if (!state.favorites.some(fav => fav.uid === action.payload.uid)) {
-                state.favorites.push(action.payload);
+            const exists = state.favorites.find(fav => fav.uid === action.payload.uid);
+            if (!exists) {
+                state.favorites.push(action.payload); // only add if not already in favorites
             }
         },
-        // Reducer to remove an entity from favorites
+
+        // Action to remove an entity from favorites
         removeFromFavorites: (state, action) => {
-            console.log("Removing:", action.payload); // For debugging purposes
-            state.favorites = state.favorites.filter(fav => fav.uid !== action.payload.uid);
+            state.favorites = state.favorites.filter(fav => fav.uid !== action.payload); // remove by UID
         }
     },
+
+    // Handling extra actions (like the async thunks above)
     extraReducers: (builder) => {
-        // Handle the async actions with different states (pending, fulfilled, rejected)
         builder
-            // Handle the "fetch
+            // ----------------------------
+            // FETCH PEOPLE
+            // ----------------------------
+            .addCase(fetchPeople.pending, (state) => {
+                state.status = "loading"; // show loading state while request is in progress
+            })
+            .addCase(fetchPeople.fulfilled, (state, action) => {
+                state.status = "succeeded";
+                state.people = action.payload; // store the fetched people
+            })
+            .addCase(fetchPeople.rejected, (state, action) => {
+                state.status = "failed";
+                state.error = action.error.message; // store the error message
+            })
+
+            // ----------------------------
+            // FETCH PLANETS
+            // ----------------------------
+            .addCase(fetchPlanets.fulfilled, (state, action) => {
+                state.planets = action.payload; // store the fetched planets
+            })
+
+            // ----------------------------
+            // FETCH VEHICLES
+            // ----------------------------
+            .addCase(fetchVehicles.fulfilled, (state, action) => {
+                state.vehicles = action.payload; // store the fetched vehicles
+            });
+    }
+});
+
+// ----------------------
+// EXPORTS
+// ----------------------
+
+// This is the reducer function that will be combined in your store
+export default swapiSlice.reducer;
+
+// These are the action creators automatically generated for the reducer functions above
+export const { addToFavorites, removeFromFavorites } = swapiSlice.actions;
+

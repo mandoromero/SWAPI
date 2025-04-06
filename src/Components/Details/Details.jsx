@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import "../Details/Details.css";
 
 const Details = () => {
     const { type, id } = useParams(); // Get entity type (e.g., people, planets, vehicles) and ID from URL
@@ -75,7 +76,7 @@ const Details = () => {
     }
 
     return (
-        <div style={{ fontFamily: 'SF Distant Galaxy, sans-serif', textAlign: "center", padding: "20px", color: "#eef81e" }}>
+        <div className="details-containter"style={{ fontFamily: 'SF Distant Galaxy, sans-serif', textAlign: "center", padding: "20px", color: "#eef81e" }}>
             {/* Image section */}
             <img 
                 src={imageHolder} // Placeholder image URL

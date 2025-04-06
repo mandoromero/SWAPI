@@ -38,8 +38,8 @@ const EntityList = ({ entities = [], entityType }) => {
                 spaceBetween={20} // Space between slides
                 breakpoints={{
                     640: { slidesPerView: 2 }, // Show 2 slides per view for screen width 640px+
-                    768: { slidesPerView: 3 }, // Show 3 slides per view for screen width 768px+
-                    1024: { slidesPerView: 4 }, // Show 4 slides per view for screen width 1024px+
+                    768: { slidesPerView: 2 }, // Show 3 slides per view for screen width 768px+
+                    1024: { slidesPerView: 5 }, // Show 4 slides per view for screen width 1024px+
                 }}
                 navigation // Enable navigation arrows
                 pagination={{ clickable: true }} // Enable clickable pagination dots
@@ -49,27 +49,10 @@ const EntityList = ({ entities = [], entityType }) => {
                 {entities.map((entity) => (
                     <SwiperSlide key={entity.uid}> {/* Each slide should have a unique key */}
                         {/* Card layout for displaying each entity */}
-                        <div
-                            className="card"
-                            style={{
-                                width: "150px",
-                                height: "250px",
-                                border: "3px #000000 solid",
-                                backgroundColor: "#FFE81F",
-                                borderRadius: "5%",
-                            }}
-                        >
+                        <div className="card">
                             {/* Card body to hold the image */}
                             <div
-                                className="card-body"
-                                style={{
-                                    border: "2px #000000 solid",
-                                    borderRadius: "5%",
-                                    width: "90%",
-                                    margin: "6px auto",
-                                    height: "65%",
-                                }}
-                            >
+                                className="card-body">
                                 {/* Image for the entity */}
                                 <img
                                     className="card-img-top"
@@ -93,18 +76,8 @@ const EntityList = ({ entities = [], entityType }) => {
                             {/* Button to toggle the entity's favorite status */}
                             <button
                                 className="btn btn-lg btn-block"
-                                onClick={() => toggleFavorite(entity)} // Call toggleFavorite function on button click
-                                style={{
-                                    display: "block",
-                                    width: "80%",
-                                    height: "30px",
-                                    margin: "5px auto",
-                                    backgroundColor: "#000000",
-                                    color: "#FFE81F",
-                                    border: "none",
-                                    borderRadius: "5%",
-                                }}
-                            >
+                                onClick={() => toggleFavorite(entity)} // Call toggleFavorite function on button click //
+                             >
                                 {/* Display a filled star (★) if the entity is a favorite, otherwise an empty star (☆) */}
                                 {favorites.some((fav) => fav.uid === entity.uid) ? "★" : "☆"} Favorite
                             </button>
@@ -117,3 +90,7 @@ const EntityList = ({ entities = [], entityType }) => {
 };
 
 export default EntityList;
+
+
+
+
